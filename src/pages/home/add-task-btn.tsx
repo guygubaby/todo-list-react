@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 export const AddTaskBtn = () => {
   const history = useHistory();
+
   const goToAddTaskPage = () => history.push("/add-task");
 
   return (

@@ -1,14 +1,16 @@
-import { observer } from "mobx-react-lite";
 import React from "react";
+import { todoStore, TodoStoreContext } from "./pages/store/index";
+import { EntryPoint } from "./pages/index";
 import { BrowserRouter as Router } from "react-router-dom";
-import { EntryPoint } from "./pages";
 
-const App = observer(() => (
-  <div className="App">
-    <Router>
-      <EntryPoint />
-    </Router>
-  </div>
-));
+const App = () => (
+  <TodoStoreContext.Provider value={todoStore}>
+    <div className="App">
+      <Router>
+        <EntryPoint />
+      </Router>
+    </div>
+  </TodoStoreContext.Provider>
+);
 
 export default App;

@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { createContext } from "react";
 
 export interface TodoItemType {
@@ -10,7 +10,11 @@ export interface TodoItemType {
 }
 
 class TodoListStoreImpl {
-  @observable todoList: TodoItemType[] = [
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  todoList: TodoItemType[] = [
     {
       id: Date.now(),
       title: "learn mobx",
@@ -27,11 +31,11 @@ class TodoListStoreImpl {
     },
   ];
 
-  @computed get leftCount() {
+  get leftCount() {
     return this.todoList.filter((todo) => !todo.isDone).length;
   }
 
-  @computed get sortedTodoList() {
+  get sortedTodoList() {
     return this.todoList.sort((p, n) => {
       const pNum = p.isDone ? 1 : 0;
       const nNum = n.isDone ? 1 : 0;
@@ -39,7 +43,6 @@ class TodoListStoreImpl {
     });
   }
 
-  @action
   addTodo(title: string, detail: string, isDone?: boolean) {
     const todo: TodoItemType = {
       id: Date.now(),
@@ -51,7 +54,6 @@ class TodoListStoreImpl {
     this.todoList.push(todo);
   }
 
-  @action
   setTodoIsDone(id: number, isDone: boolean) {
     const index = this.todoList.findIndex((todo) => todo.id === id);
     if (index !== -1) {
@@ -60,4 +62,5 @@ class TodoListStoreImpl {
   }
 }
 
-export const TodoListStoreContext = createContext(new TodoListStoreImpl());
+export const todoStore = new TodoListStoreImpl();
+export const TodoStoreContext = createContext<TodoListStoreImpl>(todoStore);

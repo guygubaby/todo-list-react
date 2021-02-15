@@ -1,4 +1,4 @@
 import { useContext } from "react";
-import { TodoListStoreContext } from "../pages/store";
+import { TodoStoreContext } from "../pages/store/index";
 
-export const useStore = () => useContext(TodoListStoreContext);
+export const useTodoStore = () => useContext(TodoStoreContext);

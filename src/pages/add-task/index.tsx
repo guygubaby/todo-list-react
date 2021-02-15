@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useStore } from "../../hooks/store";
 import { TodoItemType } from "../store/index";
+import { useTodoStore } from "../../hooks/store";
 
 export const AddTask = () => {
-  const store = useStore();
+  const store = useTodoStore();
   const history = useHistory();
 
   const [formState, setFormState] = useState<TodoItemType>({
@@ -16,7 +16,6 @@ export const AddTask = () => {
   });
 
   const addTask = () => {
-    console.log(formState);
     const { title, detail } = formState;
     const isInValide = !title || !detail;
     if (isInValide) {

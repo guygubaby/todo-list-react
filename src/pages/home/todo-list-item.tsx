@@ -1,7 +1,7 @@
 import React from "react";
 import { TodoItemType } from "../store/index";
 import { formatTime } from "../../utils/time";
-import { useStore } from "../../hooks/store";
+import { useTodoStore } from "../../hooks/store";
 
 export const TodoListItem: React.FC<TodoItemType> = ({
   id,
@@ -10,11 +10,10 @@ export const TodoListItem: React.FC<TodoItemType> = ({
   isDone,
   detail,
 }) => {
-  const store = useStore();
+  const store = useTodoStore();
 
   const handleCompleteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isDone: boolean = e.target.checked;
-    console.log("isDone: ", isDone);
     store.setTodoIsDone(id, isDone);
   };
 
